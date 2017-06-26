@@ -42,12 +42,19 @@ app.get("/scrape", function(req, res) {
           if (err) {
             console.log(err);
           }
-          else
-            console.log(doc);
         });
       });
   });
-  res.render("index");
+});
+
+app.get("/", function(req, res) {
+  Articles.find({}, function(error, articles) {
+    if (error) {
+      console.log(error);
+    } else {
+      res.render("index", {articles: articles});
+    }
+  });
 });
 
 app.listen(3000, function() {

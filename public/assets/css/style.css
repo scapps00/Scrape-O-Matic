@@ -6,4 +6,19 @@ body {
 
 h1 {
 	font-size: 70px;
+	margin-top: 0px;
+	padding-top: 0px;
+}
+
+.title {
+	font-size: 35px;
+}
+
+.summary {
+	font-size: 25px;
+}
+
+a, a:hover, a:active, a:visited {
+	text-decoration: none;
+	color: inherit;
 }
