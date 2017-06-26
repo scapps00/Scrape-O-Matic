@@ -42,8 +42,20 @@ app.get("/scrape", function(req, res) {
           if (err) {
             console.log(err);
           }
+          res.redirect("/");
         });
       });
+  });
+});
+
+app.get("/articles/:id", function(req, res) {
+  Articles.findOne({ "_id": req.params.id })
+  .exec(function(error, doc) {
+    if (error){
+      console.log(error);
+    } else {
+      res.render("article", {article: doc});
+    }
   });
 });
 
