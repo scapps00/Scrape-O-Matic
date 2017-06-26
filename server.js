@@ -9,9 +9,15 @@ app.get("/scrape", function(req, res) {
   var titleArray = [];
   request("http://www.bbc.com/news", function(error, response, html) {
       var $ = cheerio.load(html);
-      $(".gs-c-promo-heading").each(function(i, element) {
-        var title = $(this).text();
-        console.log(title);
+      $(".gs-c-promo-body").each(function(i, element) {
+        var title = $(this).children("div").children("a").children(".gs-c-promo-heading__title").text();
+        var summary = $(this).children("div").children(".gs-c-promo-summary").text();
+        var link = $(this).children("div").children("a").attr("href");
+        if (title && summary && link) {  
+          console.log(title);
+          console.log(summary);
+          console.log("http://www.bbc.com/" + link);
+        }
       });
   });
 });
