@@ -1,0 +1,9 @@
+body {
+	font-family: 'Amatic SC', cursive;
+	color: white;
+	background-image: url("../images/dark_embroidery.png");
+}
+
+h1 {
+	font-size: 70px;
+}
