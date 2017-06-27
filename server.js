@@ -70,6 +70,33 @@ app.get("/articles/:id", function(req, res) {
   });
 });
 
+app.get("/removeNote/:aID/:nID", function(req, res) {
+  Articles.findOne({ "_id": req.params.aID })
+  .populate({
+    path: "notes",
+    model: "Note"
+  })
+  .exec(function(error, doc) {
+    if (error){
+      console.log(error);
+    } else {
+      if (doc.notes.length = 1) {
+        newNotes = []
+      } else {
+        var index = doc.notes.indexOf(req.params.nID);
+        var newNotes = doc.notes.splice(index, 1);
+      }
+      Articles.findOneAndUpdate({ "_id": req.params.aID}, {"notes": newNotes})
+        .exec(function(err, doc) {
+          if (err) console.log(err);
+          else {
+            res.redirect("/articles/" + req.params.aID);
+          }
+      });
+    }
+  });
+});
+
 app.get("/", function(req, res) {
   Articles.find({}, function(error, articles) {
     if (error) {
@@ -81,6 +108,8 @@ app.get("/", function(req, res) {
 });
 
 app.post("/articles/:id", function(req, res) {
+  req.body.aID = req.params.id;
+
   var newNote = new Note(req.body);
 
   newNote.save(function(error, newNote) {

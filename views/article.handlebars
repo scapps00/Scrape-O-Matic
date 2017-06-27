@@ -13,5 +13,5 @@
 <br>
 <br>
 {{#each article.notes}}
-<div class="note"><strong>{{this.author}}<strong> says: "{{this.body}}"</div>
+<div class="note"><a href="/removeNote/{{this.aID}}/{{this._id}}">X</a> {{this.author}} says: "{{this.body}}"</div>
 {{/each}}

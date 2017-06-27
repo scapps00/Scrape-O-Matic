@@ -11,6 +11,10 @@ var NoteSchema = new Schema({
 		type: String,
 		required: false,
 		default: "Anonymous"
+	},
+	aID: {
+		type: String,
+		required: true
 	}
 });
 
