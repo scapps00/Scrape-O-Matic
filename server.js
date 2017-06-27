@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-mongoose.connect("mongodb://127.0.0.1:27017");
+mongoose.connect("mongodb://heroku_t35mf75x:vrtsatdebrasf6mim7ugnqt4kh@ds139072.mlab.com:39072/heroku_t35mf75x");
 var db = mongoose.connection;
 
 db.on("error", function(error) {
@@ -84,7 +84,7 @@ app.get("/removeNote/:aID/:nID", function(req, res) {
         newNotes = []
       } else {
         var index = doc.notes.indexOf(req.params.nID);
-        var newNotes = doc.notes.splice(index, 1);
+        doc.notes.splice(index, 1);
       }
       Articles.findOneAndUpdate({ "_id": req.params.aID}, {"notes": newNotes})
         .exec(function(err, doc) {
@@ -102,7 +102,9 @@ app.get("/", function(req, res) {
     if (error) {
       console.log(error);
     } else {
-      res.render("index", {articles: articles});
+      articles.reverse();
+      newArticles = articles.splice(0, 15);
+      res.render("index", {articles: newArticles});
     }
   });
 });
