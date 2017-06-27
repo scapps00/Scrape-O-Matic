@@ -1,10 +1,13 @@
-<a href="scrape">Update</a>
+<link rel="stylesheet" href="assets/css/style.css">
+<a href="scrape" id="update">Update</a>
+<br>
 <br>
 {{#each articles}}
 <div class="title"><a href={{this.link}}>{{this.title}}</a></div>
 <br>
 <div class="summary">{{this.summary}}</div>
 <br>
-<a href="/articles/{{this._id}}">Notes</a>
+<a href="/articles/{{this._id}}" class="notes">Notes</a>
+<br>
 <br>
 {{/each}}

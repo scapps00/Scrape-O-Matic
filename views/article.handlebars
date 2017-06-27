@@ -1,9 +1,17 @@
+<link rel="stylesheet" href="../../assets/css/style.css">
 <div class="title"><a href={{article.link}}>{{article.title}}</a></div>
 <br>
 <div class="summary">{{article.summary}}</div>
 <br>
-<form action="/article/{{article._id}}">
-	<textarea id="newNote">
+<form action="/articles/{{article._id}}" method="POST">
+	Note:<br><textarea name="body"></textarea>
+	<br>
+	Name:<br><input name="author" default="Your Name">
 	<br>
 	<button id="submit">Submit New Note</button>
 </form>
+<br>
+<br>
+{{#each article.notes}}
+<div class="note"><strong>{{this.author}}<strong> says: "{{this.body}}"</div>
+{{/each}}

@@ -4,11 +4,17 @@ var request = require("request");
 var cheerio = require("cheerio");
 var exphbs = require("express-handlebars");
 var path = require("path");
+var bodyParser = require("body-parser");
 var Articles = require("./models/Articles.js");
+var Note = require("./models/Note.js");
 
 mongoose.Promise = Promise;
 
 var app = express();
+
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 mongoose.connect("mongodb://127.0.0.1:27017");
 var db = mongoose.connection;
@@ -50,10 +56,15 @@ app.get("/scrape", function(req, res) {
 
 app.get("/articles/:id", function(req, res) {
   Articles.findOne({ "_id": req.params.id })
+  .populate({
+    path: "notes",
+    model: "Note"
+  })
   .exec(function(error, doc) {
     if (error){
       console.log(error);
     } else {
+      console.log(doc);
       res.render("article", {article: doc});
     }
   });
@@ -65,6 +76,28 @@ app.get("/", function(req, res) {
       console.log(error);
     } else {
       res.render("index", {articles: articles});
+    }
+  });
+});
+
+app.post("/articles/:id", function(req, res) {
+  var newNote = new Note(req.body);
+
+  newNote.save(function(error, newNote) {
+    if (error) console.log(error);
+    else {
+      Articles.findOne({ "_id": req.params.id })
+        .exec(function(error, doc) {
+          var notes = doc.notes;
+          notes.push(newNote._id);
+          Articles.findOneAndUpdate({ "_id": req.params.id}, {"notes": notes})
+          .exec(function(err, doc) {
+            if (err) console.log(err)
+            else {
+              res.redirect("/articles/" + req.params.id);
+            }
+          })
+      });
     }
   });
 });

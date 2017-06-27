@@ -15,7 +15,11 @@ var ArticlesSchema = new Schema({
 	link: {
 		type: String,
 		required:true
-	}
+	},
+	notes: [{
+			type: Schema.Types.ObjectId,
+			ref: "Note"
+	}]
 });
 
 var Articles = mongoose.model("Articles", ArticlesSchema);

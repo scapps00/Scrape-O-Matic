@@ -14,11 +14,20 @@ h1 {
 	font-size: 35px;
 }
 
-.summary {
+.summary, form {
 	font-size: 25px;
 }
 
 a, a:hover, a:active, a:visited {
 	text-decoration: none;
 	color: inherit;
+}
+
+#update, .notes {
+	font-size: 25px;
+	border: 2px solid white;
+}
+
+.note {
+	font-size: 25px;
 }
