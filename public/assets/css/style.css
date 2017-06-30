@@ -5,6 +5,8 @@ body {
 }
 
 #top {
+	margin: auto;
+	display: block;
 	color: black;
 	font-size: 70px;
 	margin-top: 0px;
@@ -15,8 +17,9 @@ body {
    	4px -4px 0 white,
     -4px 4px 0 white,
     4px 4px 0 white;
-	width: 900px;
+	width: 1100px;
 	height: 200px;
+	text-align: center;
 	background-image: url("../images/newspaper.jpg");
 }
 
@@ -71,10 +74,24 @@ a:hover, .saveButton:hover, .submitButton:hover, a:focus, .saveButton:focus, .su
   transform: scale(1.1);
 }
 
-.savedButton, .indexSaveButton {
+.savedButton, .indexSaveButton, .deleteButton {
 	margin-left: 20px;
 }
 
 #main {
 	margin-left: 40px;
+}
+
+form {
+	display:inline;
+     margin:0px;
+     padding:0px;
+}
+
+.options {
+	text-align: center;
+}
+
+.Tracy {
+	margin-left: 900px;
 }

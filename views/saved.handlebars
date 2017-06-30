@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="assets/css/style.css">
 <br>
+<div class="options">
 <a href="/"><button>Recent Articles</button></a>
+</div>
 <br>
 <br>
 {{#each articles}}
@@ -8,8 +10,10 @@
 <br>
 <div class="summary">{{this.articleID.summary}}</div>
 <br>
-<a href="/articles/{{this.articleID._id}}" class="notes"><button>Notes</button></a>&#32;&#32;<a href="/unsave/{{this.articleID._id}}">
+<div class="Tracy">
+<a href="/articles/{{this.articleID._id}}" class="notes"><button>Notes</button></a><a href="/unsave/{{this.articleID._id}}" class="deleteButton">
 <button>Delete</button></a>
+</div>
 <br>
 <br>
 {{/each}}

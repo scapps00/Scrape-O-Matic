@@ -1,24 +1,31 @@
 <link rel="stylesheet" href="../../assets/css/style.css">
 <br>
+<div class="options">
 <a href="/"><button>Recent Articles</button></a><a href="/saved"><button class="savedButton">Saved Articles</button></a>
+</div>
 <br>
 <br>
 <div class="title"><a href={{article.link}}>{{article.title}}</a></div>
 <br>
 <div class="summary">{{article.summary}}</div>
 <br>
+<div class="Tracy">
 <form action="/save/{{article._id}}" method="POST">
 	<button id="submit" class="saveButton">Save</button>
 </form>
+</div>
+<br>
 <br>
 <form action="/articles/{{article._id}}" method="POST">
-	Note:<br><textarea name="body"></textarea>
+	Note:<br><br><textarea name="body"></textarea>
 	<br>
-	Name:<br><input name="author" default="Your Name">
+	<br>
+	Name:<br><br><input name="author" default="Your Name">
 	<br>
 	<br>
 	<button id="submit" class="submitButton">Submit New Note</button>
 </form>
+<br>
 <br>
 <br>
 {{#each article.notes}}
