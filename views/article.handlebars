@@ -1,7 +1,13 @@
 <link rel="stylesheet" href="../../assets/css/style.css">
+<a href="/"><button>Recent Articles</button></a>&#32;&#32;<a href="/saved"><button>Saved Articles</button></a>
+<br>
 <div class="title"><a href={{article.link}}>{{article.title}}</a></div>
 <br>
 <div class="summary">{{article.summary}}</div>
+<br>
+<form action="/save/{{article._id}}" method="POST">
+	<button id="submit">Save</button>
+</form>
 <br>
 <form action="/articles/{{article._id}}" method="POST">
 	Note:<br><textarea name="body"></textarea>
@@ -13,5 +19,5 @@
 <br>
 <br>
 {{#each article.notes}}
-<div class="note"><a href="/removeNote/{{this.aID}}/{{this._id}}">X</a> {{this.author}} says: "{{this.body}}"</div>
+<div class="note"><a href="/removeNote/{{this.aID}}/{{this._id}}"><button>X</button></a> {{this.author}} says: "{{this.body}}"</div>
 {{/each}}

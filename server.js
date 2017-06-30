@@ -7,6 +7,7 @@ var path = require("path");
 var bodyParser = require("body-parser");
 var Articles = require("./models/Articles.js");
 var Note = require("./models/Note.js");
+var Saved = require("./models/Saved.js");
 
 mongoose.Promise = Promise;
 
@@ -16,7 +17,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-mongoose.connect("mongodb://heroku_t35mf75x:vrtsatdebrasf6mim7ugnqt4kh@ds139072.mlab.com:39072/heroku_t35mf75x");
+mongoose.connect("mongodb://127.0.0.1:27017");
 var db = mongoose.connection;
 
 db.on("error", function(error) {
@@ -98,7 +99,8 @@ app.get("/removeNote/:aID/:nID", function(req, res) {
 });
 
 app.get("/", function(req, res) {
-  Articles.find({}, function(error, articles) {
+  Articles.find({})
+  .exec(function(error, articles) {
     if (error) {
       console.log(error);
     } else {
@@ -119,18 +121,54 @@ app.post("/articles/:id", function(req, res) {
     else {
       Articles.findOne({ "_id": req.params.id })
         .exec(function(error, doc) {
-          var notes = doc.notes;
-          notes.push(newNote._id);
-          Articles.findOneAndUpdate({ "_id": req.params.id}, {"notes": notes})
-          .exec(function(err, doc) {
-            if (err) console.log(err)
-            else {
-              res.redirect("/articles/" + req.params.id);
-            }
-          })
+          if (error) console.log(error);
+          else {
+            var notes = doc.notes;
+            notes.push(newNote._id);
+            Articles.findOneAndUpdate({ "_id": req.params.id}, {"notes": notes})
+            .exec(function(err, doc) {
+              if (err) console.log(err)
+              else {
+                res.redirect("/articles/" + req.params.id);
+              }
+            });
+          }
       });
     }
   });
+});
+
+app.post("/save/:id", function(req, res) {
+  var article = {};
+  article.articleID = req.params.id;
+  var entry = new Saved(article);
+  entry.save(function(error, doc) {
+    if (error) console.log(error);
+  });
+});
+
+app.get("/saved", function(req, res) {
+  Saved.find({})
+  .populate({
+    path: "articleID",
+    model: "Articles"
+  })
+  .exec(function(error, articles) {
+    if (error) {
+      console.log(error);
+    } else {
+      articles.reverse();
+      res.render("saved", {articles: articles});
+    }
+  });
+});
+
+app.get("/unsave/:id", function(req, res) {
+  Saved.remove({ "articleID": req.params.id })
+  .exec(function(error, doc) {
+    
+  });
+  res.redirect("/saved");
 });
 
 app.listen(process.env.PORT || 3000);

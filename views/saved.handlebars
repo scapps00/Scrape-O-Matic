@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="assets/css/style.css">
+<br>
+<a href="/"><button>Recent Articles</button></a>
+<br>
+{{#each articles}}
+<div class="title"><a href={{this.articleID.link}}>{{this.articleID.title}}</a></div>
+<br>
+<div class="summary">{{this.articleID.summary}}</div>
+<br>
+<a href="/articles/{{this.articleID._id}}" class="notes"><button>Notes</button></a>&#32;&#32;<a href="/unsave/{{this.articleID._id}}">
+<button>Delete</button></a>
+<br>
+<br>
+{{/each}}

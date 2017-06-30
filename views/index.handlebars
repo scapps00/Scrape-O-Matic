@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="assets/css/style.css">
-<a href="scrape" id="update">Update</a>
+<a href="scrape" id="update"><button>Update</button></a>&#32;&#32;<a href="/saved"><button>Saved Articles</button></a>
 <br>
 <br>
 {{#each articles}}
@@ -7,7 +7,9 @@
 <br>
 <div class="summary">{{this.summary}}</div>
 <br>
-<a href="/articles/{{this._id}}" class="notes">Notes</a>
+<a href="/articles/{{this._id}}" class="notes"><button>Notes</button></a>&#32;&#32;<form action="/save/{{this._id}}" method="POST">
+	<button id="submit">Save</button>
+</form>
 <br>
 <br>
 {{/each}}
