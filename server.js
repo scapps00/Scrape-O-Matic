@@ -138,12 +138,43 @@ app.post("/articles/:id", function(req, res) {
   });
 });
 
-app.post("/save/:id", function(req, res) {
+app.post("/save/:page/:id", function(req, res) {
   var article = {};
   article.articleID = req.params.id;
   var entry = new Saved(article);
   entry.save(function(error, doc) {
-    if (error) console.log(error);
+    if (error) {
+      console.log(error);
+      var modal = "Article Already Saved";
+    } else {
+      var modal = "Article Saved";
+    }
+    if (req.params.page == "index") {
+      Articles.find({})
+      .exec(function(error, articles) {
+        if (error) {
+          console.log(error);
+        } else {
+          articles.reverse();
+          newArticles = articles.splice(0, 15);
+          res.render("indexModal", {articles: newArticles, modal: modal});
+        }
+      });
+    } else if (req.params.page == "article") {
+      Articles.findOne({ "_id": req.params.id })
+      .populate({
+        path: "notes",
+        model: "Note"
+      })
+      .exec(function(error, doc) {
+        if (error){
+          console.log(error);
+        } else {
+          console.log(doc);
+          res.render("article", {article: doc, modal: modal});
+        }
+      });
+    }
   });
 });
 
@@ -166,7 +197,7 @@ app.get("/saved", function(req, res) {
 app.get("/unsave/:id", function(req, res) {
   Saved.remove({ "articleID": req.params.id })
   .exec(function(error, doc) {
-    
+
   });
   res.redirect("/saved");
 });

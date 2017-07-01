@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="../../../assets/css/style.css">
+<h2>Notes</h2>
+<br>
+<div class="options">
+<a href="../../../"><button>Recent Articles</button></a><a href="../../../saved"><button class="savedButton">Saved Articles</button></a>
+</div>
+<br>
+<br>
+<div class="title"><a href={{article.link}}>{{article.title}}</a></div>
+<br>
+<div class="summary">{{article.summary}}</div>
+<br>
+<div class="Tracy">
+<form action="../../../save/article/{{article._id}}" method="POST">
+	<button id="submit" class="saveButton">Save</button>
+</form>
+</div>
+<br>
+<br>
+{{#each article.notes}}
+<div class="note"><a href="../../../removeNote/{{this.aID}}/{{this._id}}"><button>X</button></a> {{this.author}} says: "{{this.body}}"</div>
+{{/each}}
+<br>
+<br>
+<br>
+<form action="../../../articles/{{article._id}}" method="POST">
+	Note:<br><br><textarea name="body"></textarea>
+	<br>
+	<br>
+	Name:<br><br><input name="author" default="Your Name">
+	<br>
+	<br>
+	<button id="submit" class="submitButton">Submit New Note</button>
+</form>
+<div class="modal">
+	<div class="modalContent">
+	{{modal}}
+	<br>
+	<br>
+	<br>
+	<button class="close">Close</button>
+	</div>
+</div>
+<div class="whiteOut"><br></div>
+<script src="../../../assets/js/modal.js"></script>

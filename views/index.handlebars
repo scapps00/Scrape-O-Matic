@@ -13,21 +13,11 @@
 <br>
 <div class="Tracy">
 <a href="/articles/{{this._id}}" class="notes"><button>Notes</button></a>
-<form action="/save/{{this._id}}" method="POST">
+<form action="/save/index/{{this._id}}" method="POST">
 	<button id="submit" class="saveButton indexSaveButton">Save</button>
 </form>
 </div>
 <br>
 <br>
 {{/each}}
-<div class="modal">
-	<div class="modalContent">
-	Article Saved
-	<br>
-	<br>
-	<br>
-	<button class="close">Close</button>
-	</div>
-</div>
-<div class="whiteOut"><br></div>
 <script src="assets/js/modal.js"></script>
