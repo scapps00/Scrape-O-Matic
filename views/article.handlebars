@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="../../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+<h2>Notes</h2>
 <br>
 <div class="options">
 <a href="/"><button>Recent Articles</button></a><a href="/saved"><button class="savedButton">Saved Articles</button></a>
@@ -16,6 +17,12 @@
 </div>
 <br>
 <br>
+{{#each article.notes}}
+<div class="note"><a href="/removeNote/{{this.aID}}/{{this._id}}"><button>X</button></a> {{this.author}} says: "{{this.body}}"</div>
+{{/each}}
+<br>
+<br>
+<br>
 <form action="/articles/{{article._id}}" method="POST">
 	Note:<br><br><textarea name="body"></textarea>
 	<br>
@@ -25,9 +32,14 @@
 	<br>
 	<button id="submit" class="submitButton">Submit New Note</button>
 </form>
-<br>
-<br>
-<br>
-{{#each article.notes}}
-<div class="note"><a href="/removeNote/{{this.aID}}/{{this._id}}"><button>X</button></a> {{this.author}} says: "{{this.body}}"</div>
-{{/each}}
+<div class="modal">
+	<div class="modalContent">
+	Article Saved
+	<br>
+	<br>
+	<br>
+	<button class="close">Close</button>
+	</div>
+</div>
+<div class="whiteOut"><br></div>
+<script src="../assets/js/modal.js"></script>
