@@ -171,7 +171,7 @@ app.post("/save/:page/:id", function(req, res) {
           console.log(error);
         } else {
           console.log(doc);
-          res.render("article", {article: doc, modal: modal});
+          res.render("articleModal", {article: doc, modal: modal});
         }
       });
     }
